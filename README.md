@@ -3,7 +3,10 @@ Updated version of @ammaar AI Studio Build Tool
 
 
 
+## Credits
 
+X: https://x.com/ammaar - Build the core tool
+Yoututbe: @Incomestreamsurfers - Idea model selector and generate hole homepage from an artifact
 
 ## Run Locally
 
