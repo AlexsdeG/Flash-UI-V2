@@ -8,6 +8,12 @@ import { produce } from 'immer';
 import { AppState, Project, Variant, GlobalSettings, ArtifactCardConfig, GenerationSettings, FileAsset, HistoryStep } from './types';
 import { generateId } from './utils';
 import { DEFAULT_MODEL } from './config/models';
+import { RANDOM_STYLES } from './constants';
+
+function pickRandomStyles(count: number): string[] {
+    const shuffled = [...RANDOM_STYLES].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, count);
+}
 
 interface ProjectStore extends AppState {
     // Actions
@@ -77,7 +83,7 @@ const INITIAL_SETTINGS: GlobalSettings = {
 
 const DEFAULT_GEN_SETTINGS: GenerationSettings = {
     model: DEFAULT_MODEL,
-    temperature: 0.7,
+    temperature: 1.0,
     provider: 'gemini',
     appType: 'landing_page',
     framework: 'vanilla',
@@ -85,11 +91,14 @@ const DEFAULT_GEN_SETTINGS: GenerationSettings = {
     colors: []
 };
 
-const DEFAULT_CARDS: ArtifactCardConfig[] = [
-    { id: 'c1', styleDirective: 'Minimalist & Clean', isGenerated: false },
-    { id: 'c2', styleDirective: 'Bold & Brutalist', isGenerated: false },
-    { id: 'c3', styleDirective: 'Glassmorphic & Futuristic', isGenerated: false },
-];
+function createRandomCards(): ArtifactCardConfig[] {
+    const styles = pickRandomStyles(3);
+    return styles.map((style, i) => ({
+        id: `c${i + 1}`,
+        styleDirective: style,
+        isGenerated: false
+    }));
+}
 
 export const useProjectStore = create<ProjectStore>((set, get) => ({
     projects: {},
@@ -109,7 +118,7 @@ export const useProjectStore = create<ProjectStore>((set, get) => ({
             activeVariantId: null,
             variants: {},
             prompt: '',
-            cardConfigs: JSON.parse(JSON.stringify(DEFAULT_CARDS)), 
+            cardConfigs: createRandomCards(), 
             globalSettings: { ...DEFAULT_GEN_SETTINGS }
         };
 
@@ -367,7 +376,7 @@ export const useProjectStore = create<ProjectStore>((set, get) => ({
             if (project && project.cardConfigs.length < 5) {
                 project.cardConfigs.push({
                     id: generateId(),
-                    styleDirective: 'New Style',
+                    styleDirective: pickRandomStyles(1)[0],
                     isGenerated: false
                 });
             }

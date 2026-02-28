@@ -122,9 +122,14 @@ export const Dashboard = () => {
 
         try {
             const combinedPrompt = `
-                Style: ${newDesignTitle}.
-                Instructions: ${newDesignInstructions}.
-                Context: This is a standalone design in the project '${activeProject.title}'.
+Create a stunning, high-fidelity UI for the project: "${activeProject.title}".
+
+**CONCEPTUAL DIRECTION: ${newDesignTitle}**
+Interpret this as a physical/material metaphor. Let it drive every design decision — typography, color palette, textures, animations, and layout composition. Commit fully to this aesthetic.
+
+${newDesignInstructions ? `**Additional Instructions:** ${newDesignInstructions}` : ''}
+**Application Type:** ${activeProject.globalSettings.appType}.
+${activeProject.globalSettings.theme ? `**Theme:** ${activeProject.globalSettings.theme} mode.` : ''}
             `;
 
             const files = await aiService.generateCode(

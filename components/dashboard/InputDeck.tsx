@@ -11,7 +11,7 @@ import {
 import { cn, generateId } from '../../utils';
 import { toast } from 'sonner';
 import { aiService } from '../../lib/ai/service';
-import { RANDOM_STYLES } from '../../constants';
+import { RANDOM_STYLES, INITIAL_PLACEHOLDERS } from '../../constants';
 import { importProjectFromJson } from '../../lib/export';
 import { AI_MODELS } from '../../config/models';
 
@@ -41,6 +41,7 @@ export const InputDeck = () => {
     const [customColors, setCustomColors] = useState<string[]>([]);
     const [editingCardName, setEditingCardName] = useState<string | null>(null);
     const [attachedImages, setAttachedImages] = useState<string[]>([]);
+    const [placeholderIndex, setPlaceholderIndex] = useState(0);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const imageInputRef = useRef<HTMLInputElement>(null);
     
@@ -48,6 +49,14 @@ export const InputDeck = () => {
     useEffect(() => {
         const saved = localStorage.getItem('flashui_custom_colors');
         if (saved) setCustomColors(JSON.parse(saved));
+    }, []);
+
+    // Cycle placeholder prompts
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setPlaceholderIndex(prev => (prev + 1) % INITIAL_PLACEHOLDERS.length);
+        }, 3000);
+        return () => clearInterval(interval);
     }, []);
 
     const handleImportClick = () => {
@@ -173,10 +182,15 @@ export const InputDeck = () => {
 
             try {
                 const combinedPrompt = `
-                    Project: ${activeProject.prompt}. 
-                    Style Directive: ${card.styleDirective}. 
-                    Instructions: ${card.settings?.customInstructions || ''}.
-                    App Type: ${activeProject.globalSettings.appType}.
+Create a stunning, high-fidelity UI for: "${activeProject.prompt}".
+
+**CONCEPTUAL DIRECTION: ${card.styleDirective}**
+Interpret this as a physical/material metaphor. Let it drive every design decision — typography, color palette, textures, animations, and layout composition. Commit fully to this aesthetic.
+
+${card.settings?.customInstructions ? `**Additional Instructions:** ${card.settings.customInstructions}` : ''}
+**Application Type:** ${activeProject.globalSettings.appType}.
+${activeProject.globalSettings.theme ? `**Theme:** ${activeProject.globalSettings.theme} mode.` : ''}
+${activeProject.globalSettings.colors?.length ? `**Brand Colors:** ${activeProject.globalSettings.colors.join(', ')}.` : ''}
                 `;
 
                 const files = await aiService.generateCode(
@@ -260,7 +274,7 @@ export const InputDeck = () => {
                         ref={textAreaRef}
                         value={activeProject.prompt}
                         onChange={(e) => updateProject(activeProject.id, { prompt: e.target.value })}
-                        placeholder="e.g. A futuristic crypto trading dashboard with neon accents..."
+                        placeholder={INITIAL_PLACEHOLDERS[placeholderIndex]}
                         className="w-full bg-transparent border-none outline-none text-xl font-light text-white placeholder:text-white/20 resize-none min-h-[60px]"
                         rows={1}
                         autoFocus
