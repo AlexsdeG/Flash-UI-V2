@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useProjectStore } from '../../store';
-import { PlusIcon, XIcon, LayoutIcon, Settings, Edit2 } from 'lucide-react';
+import { PlusIcon, XIcon, LayoutIcon, Settings, Edit2, Github, Twitter } from 'lucide-react';
 import { cn } from '../../utils';
 import { Project } from '../../types';
 
@@ -119,13 +119,33 @@ export const ProjectTabs = () => {
                 </button>
             </div>
 
-            <button 
-                onClick={() => toggleSettingsModal(true)}
-                className="text-white/30 hover:text-white p-2"
-                title="Global Settings"
-            >
-                <Settings size={18} />
-            </button>
+            <div className="flex items-center gap-1">
+                <a
+                    href="https://github.com/AlexsdeG/Flash-UI-V2"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-white/30 hover:text-white p-2 hover:bg-white/10 rounded-full transition-colors"
+                    title="GitHub Repository"
+                >
+                    <Github size={18} />
+                </a>
+                <a
+                    href="https://x.com/ammaar"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-white/30 hover:text-white p-2 hover:bg-white/10 rounded-full transition-colors"
+                    title="Original Flash UI by @ammaar"
+                >
+                    <Twitter size={18} />
+                </a>
+                <button 
+                    onClick={() => toggleSettingsModal(true)}
+                    className="text-white/30 hover:text-white p-2 hover:bg-white/10 rounded-full transition-colors"
+                    title="Global Settings"
+                >
+                    <Settings size={18} />
+                </button>
+            </div>
         </div>
     );
 };
