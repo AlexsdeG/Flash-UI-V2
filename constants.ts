@@ -12,3 +12,21 @@ export const INITIAL_PLACEHOLDERS = [
     "Generate a sleek pricing table",
     "Ask for anything"
 ];
+
+export const RANDOM_STYLES = [
+    "Cyberpunk Neon Glitch",
+    "Swiss International Style",
+    "Claymorphism & Soft 3D",
+    "Bauhaus Geometric",
+    "Corporate Memphis Flat",
+    "Retro 90s Windows UI",
+    "Glassmorphism Frosted",
+    "Neobrutalism Bold",
+    "Monochrome Luxury",
+    "Terminal/CLI Hacker Aesthetic",
+    "Papercraft & Tactile",
+    "Vaporwave & Synthwave",
+    "Industrial Grunge",
+    "High-Contrast Accessibility",
+    "Apple Vision Pro Spatial"
+];

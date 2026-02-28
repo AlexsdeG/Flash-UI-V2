@@ -3,19 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diffusion Chat</title>
+    <title>Flash UI V2</title>
     <link rel="stylesheet" href="index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script type="importmap">
-        {
-            "imports": {
-                "@google/genai": "https://esm.sh/@google/genai@^0.7.0",
-                "react": "https://esm.sh/react@^19.0.0",
-                "react/": "https://esm.sh/react@^19.0.0/",
-                "react-dom/": "https://esm.sh/react-dom@^19.0.0/"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Roboto Mono', 'monospace'],
+                    },
+                    colors: {
+                        background: '#09090b',
+                        surface: '#18181b',
+                        border: '#27272a',
+                    }
+                }
             }
         }
     </script>
+    <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@0.7.0",
+    "react": "https://esm.sh/react@18.3.1",
+    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client?deps=react@18.3.1",
+    "react/jsx-runtime": "https://esm.sh/react@18.3.1/jsx-runtime",
+    "zustand": "https://esm.sh/zustand@4.5.2?deps=react@18.3.1",
+    "zustand/middleware": "https://esm.sh/zustand@4.5.2/middleware?deps=react@18.3.1",
+    "immer": "https://esm.sh/immer@10.1.1",
+    "clsx": "https://esm.sh/clsx@2.1.1",
+    "tailwind-merge": "https://esm.sh/tailwind-merge@2.3.0",
+    "lucide-react": "https://esm.sh/lucide-react@0.378.0?deps=react@18.3.1",
+    "sonner": "https://esm.sh/sonner@1.4.41?deps=react@18.3.1",
+    "@monaco-editor/react": "https://esm.sh/@monaco-editor/react@4.6.0?deps=react@18.3.1",
+    "html2canvas": "https://esm.sh/html2canvas@1.4.1",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/"
+  }
+}
+</script>
 <link rel="stylesheet" href="/index.css">
 </head>
 <body>
